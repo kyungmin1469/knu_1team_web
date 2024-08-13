@@ -13,6 +13,18 @@ const getUser = async (email, password) => {
   const user = await User.findOne({});
 };
 
+const getUserByEmail = async(email) => {
+    try{
+        const user = await User.findOne({email });
+        console.log(user);
+        return user;
+    } catch(err){
+        return null;
+    }
+    
+};
+
 module.exports = {
   createUser,
+  getUserByEmail,
 };
