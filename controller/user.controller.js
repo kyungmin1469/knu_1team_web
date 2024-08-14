@@ -77,29 +77,31 @@ userController.post("/", async (req, res) => {
   }
 });
 
-const getToken = localStorage.getItem("token");
-if (!getToken) {
-  res.status(400).json({ message: "잘못된 접근입니다." });
-} else {
-  const isVerify = jwt.verify(getToken, process.env.JWT_SECRET);
-  try {
-    if (isVerify) {
-      return res.status(200).json({
-        isVerify: true,
-        email: user.email,
-        nickname: user.nickname,
-        redirectUrl: "../public/mypage",
-      });
-    } else {
+const verifyToken = async (req, res) => {
+  const { userToken } = req.body;
+  if (!getToken) {
+    res.status(400).json({ message: "잘못된 접근입니다." });
+  } else {
+    const isVerify = jwt.verify(getToken, process.env.JWT_SECRET);
+    try {
+      if (isVerify) {
+        return res.status(200).json({
+          isVerify: true,
+          email: user.email,
+          nickname: user.nickname,
+          redirectUrl: "../public/mypage",
+        });
+      } else {
+        return res
+          .status(400)
+          .json({ isVerify: false, message: "유효하지 않은 사용자입니다." });
+      }
+    } catch {
       return res
-        .status(400)
-        .json({ isVerify: false, message: "유효하지 않은 사용자입니다." });
+        .status(500)
+        .json({ isVerify: false, message: "token값이 정상적이지 않습니다." });
     }
-  } catch {
-    return res
-      .status(500)
-      .json({ result: false, message: "token값이 정상적이지 않습니다." });
   }
-}
+};
 
 module.exports = userController;
