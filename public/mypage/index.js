@@ -1,19 +1,51 @@
-/**
- * 1) (프론트) 사용자가 [마이페이지] 버튼 혹은
- *    직접 url을 입력해서 이동한다.
- *     http://localhost:8080/mypage
- *
- * 2, 3) user.controller.js 이용
- * 2) (프론트+백) 사용자가 페이지 접근 후,
- *      localStrorage에 있는 token을 꺼내서
- *    백엔드로 보내서, 해당 토큰의 유효성을 검증
- *
- * 3) (백) 유효성 검증 결과에 따른 사용자 인증 여부를
- *      프론트로 반환한다.
- *      res.json({isVerify: true})
- *
- * 4) (프론트) 3)로부터 받은 응답값을 통해서
- *      토큰이 유효하다면 그대로 페이지 사용을 하게하고,
- *      토큰이 유효 X면 localhost:8000/signin 페이지로 보냄.
- *
- */
+document.addEventListener("DOMContentLoaded", async () => {
+  // 로컬 스토리지에서 토큰 가져오기
+  const token = localStorage.getItem("token");
+
+  if (!token) {
+    alert("로그인 필요");
+    window.location.href = "/signin/index.html"; // 로그인 페이지로 리디렉션
+    return;
+  }
+  //위 코드는 토큰을 프론트쪽에서만 받아온거니깐.... 유효한지 검사하려면 백으로 보내야함. signin/index.js의 try catch문 참고
+
+  try {
+    // 토큰 검증 요청
+    const tokenVerificationResponse = await fetch("/api/user/verify-token", {
+      method: "POST",
+      body: JSON.stringify({ token }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    const verificationResult = await tokenVerificationResponse.json();
+
+    if (tokenVerificationResponse.ok && verificationResult.valid) {
+      // 토큰이 유효할 경우 사용자 정보 요청
+      const userResponse = await fetch("/api/user/mypage", {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (userResponse.ok) {
+        const userInfo = await userResponse.json();
+        document.getElementById("user_email").textContent = userInfo.email;
+        document.getElementById("user_nickname").textContent =
+          userInfo.nickname;
+      } else {
+        alert("회원 정보를 불러오는 데 오류가 발생했습니다.");
+      }
+    } else {
+      alert("유효하지 않은 토큰입니다. 다시 로그인 해주세요.");
+      localStorage.removeItem("token");
+      window.location.href = "/signin/index.html"; // 로그인 페이지로 리디렉션
+    }
+  } catch (err) {
+    console.error(err);
+    alert("서버와의 연결에 실패했습니다.");
+  }
+});
