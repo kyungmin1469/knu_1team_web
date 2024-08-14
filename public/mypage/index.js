@@ -21,8 +21,8 @@ window.addEventListener("DOMContentLoaded", async () => {
     if (response.isVerify) {
       // 인증이 성공한 경우
       console.log("인증 성공:", data);
-      document.getElementById("email").textContent = response.email;
-      document.getElementById("nickname").textContent = response.nickname;
+      document.getElementById("email").textContent = response.user_mail;
+      document.getElementById("nickname").textContent = response.user_nickname;
       // 사용자 정보를 기반으로 페이지 내용을 업데이트
     } else {
       // 인증이 실패한 경우
