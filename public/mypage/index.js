@@ -27,7 +27,7 @@ window.addEventListener("DOMContentLoaded", async () => {
     } else {
       // 인증이 실패한 경우
       console.error(response.message);
-      window.location.href = "../signin";
+      window.location.href = "/signin";
       // 결과 메세지와 함께 signin페이지로 리다이렉트
     }
   } catch (error) {

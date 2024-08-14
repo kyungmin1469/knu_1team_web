@@ -79,7 +79,7 @@ userController.post("/", async (req, res) => {
 
 const verifyToken = async (req, res) => {
   const { userToken } = req.body;
-  if (!getToken) {
+  if (!userToken) {
     res.status(400).json({ message: "잘못된 접근입니다." });
   } else {
     const isVerify = jwt.verify(getToken, process.env.JWT_SECRET);
