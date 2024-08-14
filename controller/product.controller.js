@@ -7,6 +7,7 @@ const productController = require("express").Router();
 
 const dummyData = Array.from({ length: 30 }, (_, index) => {
   const product = {
+    _id: index,
     title: `product-title-${index + 1}`,
     price: Math.floor(Math.random() * 90000) + 10000,
     description: `product-title-${
