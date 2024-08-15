@@ -35,8 +35,8 @@ body {
   padding-top: 55px;
 }
 .main-container .main-wrap .logo-wrap img {
-  width: 231px;
-  height: 44px;
+  width: 300px;
+  height: 125px;
 }
 
 .main-container .main-wrap header .sel-lang-wrap {
@@ -132,7 +132,7 @@ body {
   background: white;
 }
 .Easy-sgin-in-wrap .sign-button-list li button i {
-  padding-left: 15px;
+  padding-left: 8px;
   font-size: 20px;
 }
 .fa-qrcode {

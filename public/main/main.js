@@ -4,6 +4,9 @@ document.addEventListener("DOMContentLoaded", function () {
   let next = document.getElementById("next");
   let prev = document.getElementById("prev");
   let dots = document.querySelectorAll(".slider .dots li");
+  const loginDiv1 = document.querySelector(".loginDIv1");
+  const loginDiv2 = document.querySelector(".loginDIv2");
+  const loginDiv3 = document.querySelector(".loginDIv3");
 
   let lengthItems = items.length;
   let active = 0;
@@ -47,75 +50,98 @@ document.addEventListener("DOMContentLoaded", function () {
   reloadSlider();
 
   window.addEventListener("resize", reloadSlider);
-});
 
-const loginPageMove = document.getElementById("loginBtnMove");
+  // Login page redirection
+  const loginPageMove = document.getElementById("loginBtnMove");
 
-loginPageMove.addEventListener("click", function () {
-  window.location.href = "http://localhost:8000/registar/";
-});
+  loginPageMove.addEventListener("click", function () {
+    window.location.href = "http://localhost:8000/signin/";
+  });
 
-const div = document.createElement("div");
-const span = document.createElement("span");
-const p = document.createElement("p");
+  // Product list rendering
+  const productListWrapper = document.getElementById("product_list_wrapper");
 
-//product JS
+  const renderProductList = async () => {
+    const productList = await fetchProductList();
 
-const productListWrapper = document.getElementById("product_list_wrapper");
+    if (!productList || productList.length === 0) {
+      console.log("Empty productList");
+      return;
+    }
 
-const renderProductList = async () => {
-  // 상품 리스트는 Array나 null이 옴
-  const productList = await fetchProductList();
-
-  if (!productList || productList.length === 0) {
-    console.log("Empty productList");
-    return;
-  }
-
-  //productList가 존재하는 경우 .append
-  //v가 body가 되는 느낌
-  productList.data.forEach((v) => {
-    //div 클래스 가져왔고
-    const itemElem = document.createElement("div");
-    itemElem.classList.add("product-item"); // 상품 아이템에 클래스 추가
-    itemElem.innerHTML = `
-    <div>
-        <img src="${v.imgUrl}" alt="${v.title}" />
-      </div>
-      <div>${v.title}</div>
-      <div>가격: ${v.price}원</div>
-      <div>[상세설명] ${v.description}</div>
-      <div>재고수량: ${v.stock}</div>
-    `;
-    itemElem.addEventListener("click", () => {
-      window.location.href = `/detail/?id=${v._id}`;
+    productList.data.forEach((v) => {
+      const itemElem = document.createElement("div");
+      itemElem.classList.add("product-item");
+      itemElem.innerHTML = `
+        <div>
+            <img src="${v.imgUrl}" alt="${v.title}" />
+          </div>
+          <div>${v.title}</div>
+          <div>가격: ${v.price}원</div>
+          <div>[상세설명] ${v.description}</div>
+          <div>재고수량: ${v.stock}</div>
+        `;
+      itemElem.addEventListener("click", () => {
+        window.location.href = `/detail/?id=${v._id}`;
+      });
+      productListWrapper.append(itemElem);
     });
-    productListWrapper.append(itemElem);
-  });
-};
+  };
 
-// const fetchProductList = async () => {
-//   try {
-//     const response = await fetch("/api/product");
-//     const productList = await response.json();
-//     return productList;
-//   } catch (error) {
-//     console.error("Error fetching product list:", error);
-//     return { data: [] };
-//   }
-// };
+  const fetchProductList = async () => {
+    const fetchResult = await fetch("/api/product", {
+      method: "get",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
 
-const fetchProductList = async () => {
-  //productController와 통신으로 productData 가져오기
-  const fetchResult = await fetch("/api/product", {
-    method: "get",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
+    const fetchData = await fetchResult.json();
+    return fetchData;
+  };
 
-  const fetchData = await fetchResult.json();
-  return fetchData;
-};
+  renderProductList();
 
-renderProductList();
+  // Profile fetching and rendering
+  const fetchProfile_mypage = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        throw new Error("토큰이 없습니다.");
+      }
+
+      const response = await fetch("http://localhost:8000/api/user/me", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ userToken: token }),
+      });
+
+      const data = await response.json();
+
+      if (data.isVerify) {
+        return data;
+      } else {
+        throw new Error("유효하지 않은 토큰입니다.");
+      }
+    } catch (error) {
+      console.error("An error occurred while fetching profile data:", error);
+      return null;
+    }
+  };
+
+  const renderProfile = async () => {
+    const token = localStorage.getItem("token");
+
+    if (token) {
+      const profileData = await fetchProfile_mypage();
+      if (profileData) {
+        loginDiv1.textContent = profileData.email;
+        loginDiv2.textContent = profileData.nickname;
+      }
+    }
+  };
+
+  renderProfile();
+});

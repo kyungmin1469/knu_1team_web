@@ -82,7 +82,6 @@ header .logo img {
   position: relative;
   overflow: hidden;
 }
-
 .slider .list {
   display: flex;
   transition: transform 1s ease;
@@ -264,8 +263,6 @@ header nav ul li {
 }
 
 #product_list_wrapper .product-item img {
-  max-width: 100%;
-  height: auto;
   border-bottom: 1px solid #e0e0e0;
 }
 
