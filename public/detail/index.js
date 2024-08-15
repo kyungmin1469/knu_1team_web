@@ -1,13 +1,20 @@
+const queryParams = new URLSearchParams(window.location.search);
 document.addEventListener("DOMContentLoaded", async () => {
-  const queryParams = new URLSearchParams(window.location.search);
-  const productId = queryParams.get("id");
-
+  const url = window.location.href;
+  const productId = url.toString().split("id=")[1];
+  const title = queryParams.get("title");
+  const imgUrl = queryParams.get("imgUrl");
+  const price = queryParams.get("price");
+  const description = queryParams.get("description");
+  const stock = queryParams.get("stock");
+  console.log(productId);
   if (!productId) {
     alert("상품 ID가 없습니다.");
     return;
   }
 
   try {
+    console.log(productId);
     const response = await fetch(`/api/product/${productId}`, {
       method: "GET",
       headers: {
@@ -17,17 +24,17 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     if (response.ok) {
       const product = await response.json();
-      document.getElementById("product-title").textContent = product.title;
-      document.getElementById("product-image").src = product.imgUrl;
-      document.getElementById(
-        "product-price"
-      ).textContent = `가격: ${product.price}원`;
+      const { title, description, imgUrl, stock, price } = product.data;
+      console.log(product);
+      document.getElementById("product-title").textContent = title;
+      document.getElementById("product-image").src = imgUrl;
+      document.getElementById("product-price").textContent = `가격: ${price}원`;
       document.getElementById(
         "product-description"
-      ).textContent = `상세설명: ${product.description}`;
+      ).textContent = `상세설명: ${description}`;
       document.getElementById(
         "product-stock"
-      ).textContent = `재고수량: ${product.stock}개`;
+      ).textContent = `재고수량: ${stock}개`;
     } else {
       alert("상품 정보를 가져오는 데 실패했습니다.");
     }
