@@ -20,7 +20,7 @@ signinButton.addEventListener("click", async () => {
 
       //local에 token 저장
       localStorage.setItem("token", result.token);
-      window.location.href = "http://localhost:8000/main/";
+      window.location.href = "http://localhost:8000/mypage/";
     } else {
       alert("(!)로그인 오류");
     }
