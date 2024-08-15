@@ -1,4 +1,6 @@
 const queryParams = new URLSearchParams(window.location.search);
+const buynow_btn = document.getElementById("buy-now");
+
 document.addEventListener("DOMContentLoaded", async () => {
   const url = window.location.href;
   const productId = url.toString().split("id=")[1];
@@ -89,7 +91,7 @@ document.getElementById("add-to-cart").addEventListener("click", () => {
       price,
       description,
       stock,
-      quantity: 1, // 기본 수량을 1로 설정
+      quantity: quantityToAdd,
     };
 
     // 장바구니에 새로운 상품 추가
@@ -100,4 +102,8 @@ document.getElementById("add-to-cart").addEventListener("click", () => {
 
   // 업데이트된 장바구니 리스트를 로컬 스토리지에 저장
   localStorage.setItem("cart", JSON.stringify(cart));
+});
+
+buynow_btn.addEventListener("click", function () {
+  window.location.href = "http://localhost:8000/product_test/";
 });

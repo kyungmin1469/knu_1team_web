@@ -1,10 +1,10 @@
 const apiController = require("express").Router();
 const userController = require("./user.controller");
 const productController = require("./product.controller");
-const orderController = require("./order.controller");
+// const orderController = require("./order.controller").Router();
 
 apiController.use("/user", userController);
 apiController.use("/product", productController);
-apiController.use("/order", orderController);
+// apiController.use("/order", orderController);
 
 module.exports = apiController;
