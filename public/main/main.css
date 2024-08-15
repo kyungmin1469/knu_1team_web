@@ -189,14 +189,10 @@ header nav ul li {
 #realBody2 {
   display: flex;
   width: 80%;
-
-  text-align: center;
-  justify-content: center;
-  align-items: center;
 }
 
 #section1Layout {
-  background-color: blue;
+  background-color: white;
   width: 70%;
   height: auto;
 }
@@ -204,7 +200,6 @@ header nav ul li {
 #aside1Layout {
   width: 30%;
   height: 500px;
-  background-color: red;
 }
 
 .loginDIv1 {
@@ -214,6 +209,7 @@ header nav ul li {
   justify-content: center;
   align-items: center;
   color: black;
+  margin-top: 3%;
 }
 
 .loginDIv2 {
@@ -225,13 +221,16 @@ header nav ul li {
   text-align: center;
   align-items: center;
   justify-content: center;
+  margin-top: -2%;
 }
 
 .loginBtn {
+  margin-top: -2%;
   width: 90%;
-  height: 80%;
+  height: 90%;
   background-color: blueviolet;
   border-radius: 20px;
+  text-align: center;
 }
 
 .loginDIv3 {
@@ -239,6 +238,8 @@ header nav ul li {
   height: 20%;
   text-align: right;
   color: black;
+  margin-top: -1%;
+  margin-left: -2%;
 }
 
 #product_list_wrapper {
@@ -383,10 +384,11 @@ footer {
 }
 
 .containerALignWidth {
+  display: flex;
   width: 100%;
   height: 100%;
   justify-content: center;
-  display: flex;
+  margin-top: 5%;
 }
 
 .container {
@@ -396,7 +398,6 @@ footer {
   border: 2px solid grey; /* Border around the container */
   border-radius: 20px;
 }
-
 .container3 {
   position: fixed;
   width: 50%;
@@ -407,26 +408,30 @@ footer {
   width: 100%;
   position: fixed;
   top: 95%;
-  left: 50%;
+  left: 51%;
   transform: translate(-50%, -50%);
   padding: 0;
   margin: 0;
   display: flex;
   z-index: 20;
 }
+
 .social-menu ul li {
   list-style: none;
   margin: 0 10px;
 }
+
 .social-menu ul li .fa {
   color: #000000;
   font-size: 25px;
   line-height: 50px;
   transition: 0.5s;
 }
+
 .social-menu ul li .fa:hover {
   color: #ffffff;
 }
+
 .social-menu ul li a {
   position: relative;
   display: block;
@@ -437,10 +442,7 @@ footer {
   transition: 0.5s;
   transform: translate(0, 0px);
   box-shadow: 0px 7px 5px rgba(0, 0, 0, 0.5);
-}
-
-.socialskk {
-  background-color: white;
+  overflow: hidden; /* 이미지가 부모 요소를 넘지 않게 함 */
 }
 
 .social-menu ul li a:hover {
