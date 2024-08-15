@@ -7,4 +7,6 @@ const getProductList = async () => {
   return productList;
 };
 
-module.exports = getProductList;
+module.exports = {
+  getProductList,
+};
