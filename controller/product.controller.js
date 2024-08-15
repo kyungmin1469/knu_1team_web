@@ -1,3 +1,5 @@
+const { getProductList } = require("../service/product.service");
+
 const productController = require("express").Router();
 const Product = require("../schema/product.schema");
 const getProductList = require("../service/product.service");
