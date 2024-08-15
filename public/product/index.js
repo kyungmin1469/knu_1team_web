@@ -36,7 +36,7 @@ const renderProductList = async () => {
   <div>가격: ${v.price}원}</div>
   <div>[상세설명] ${v.description}</div>
   <div>
-    <img src = "${v.imgeUrl}" />
+    <img src = "${v.imgUrl}" />
   </div>
   <div>재고수량: ${v.stock}</div>
   `;

@@ -1,10 +1,10 @@
 const signinEmail = document.getElementById("signin_email");
-const signinpassword = document.getElementById("signin_password");
+const signinPassword = document.getElementById("signin_password");
 const signinButton = document.getElementById("signin_button");
 
 signinButton.addEventListener("click", async () => {
   const email = signinEmail.value;
-  const password = signinpassword.value;
+  const password = signinPassword.value;
   try {
     const signinResult = await fetch("/api/user/signin", {
       method: "POST",
