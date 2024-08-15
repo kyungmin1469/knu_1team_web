@@ -4,6 +4,10 @@ document.addEventListener("DOMContentLoaded", function () {
   let next = document.getElementById("next");
   let prev = document.getElementById("prev");
   let dots = document.querySelectorAll(".slider .dots li");
+  const loginDiv1 = document.querySelector(".loginDIv1");
+  const loginDiv2 = document.querySelector(".loginDIv2");
+  const loginDIv3 = document.querySelector(".loginDIv3");
+  const registarMove = document.getElementById(".registarMove");
 
   let lengthItems = items.length;
   let active = 0;
@@ -87,74 +91,111 @@ document.addEventListener("DOMContentLoaded", function () {
   // Initial load
   fetchSlidersById();
   window.addEventListener("resize", reloadSlider);
-});
-const fetchProfile = async () => {
-  try {
-    const token = localStorage.getItem("token"); // 로컬 저장소에서 토큰 가져오기
-    if (!token) {
+
+  // Login page redirection
+  const loginPageMove = document.getElementById("loginBtnMove");
+
+  loginPageMove.addEventListener("click", function () {
+    window.location.href = "http://localhost:8000/signin/";
+  });
+
+  // Product list rendering
+  const productListWrapper = document.getElementById("product_list_wrapper");
+
+  const renderProductList = async () => {
+    const productList = await fetchProductList();
+
+    if (!productList || productList.length === 0) {
+      console.log("Empty productList");
+      return;
     }
-    // profileController와 통신으로 profileData 가져오기
-    const response = await fetch("http://localhost:8000/api/user/me", {
-      method: "POST",
+
+    productList.data.forEach((v) => {
+      const itemElem = document.createElement("div");
+      itemElem.classList.add("product-item");
+      itemElem.innerHTML = `
+        <div>
+            <img src="${v.imgUrl}" alt="${v.title}" />
+          </div>
+          <div>${v.title}</div>
+          <div>가격: ${v.price}원</div>
+          <div>[상세설명] ${v.description}</div>
+          <div>재고수량: ${v.stock}</div>
+        `;
+      itemElem.addEventListener("click", () => {
+        window.location.href = `/detail/?id=${v._id}`;
+      });
+      productListWrapper.append(itemElem);
+    });
+  };
+
+  const fetchProductList = async () => {
+    const fetchResult = await fetch("/api/product", {
+      method: "get",
       headers: {
         "Content-Type": "application/json",
-        //Authorization: `Bearer ${token}`, // 토큰을 Authorization 헤더에 추가
       },
-      body: JSON.stringify({ userToken: token }), // 토큰을 요청 본문에 포함
     });
-    // res.json({data: true})
-    // 응답이 성공적일 때
-    const data = await response.json();
-    if (data.isVerify) {
-      console.log(data);
-      return data;
-    } else {
-      console.log("유효하지 않은 토큰 값");
-      window.location.href = "http://localhost:8000/signin";
+
+    const fetchData = await fetchResult.json();
+    return fetchData;
+  };
+
+  renderProductList();
+
+  // Profile fetching and rendering
+  const fetchProfile_mypage = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        throw new Error("토큰이 없습니다.");
+      }
+
+      const response = await fetch("http://localhost:8000/api/user/me", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ userToken: token }),
+      });
+
+      const data = await response.json();
+
+      if (data.isVerify) {
+        return data;
+      } else {
+        throw new Error("유효하지 않은 토큰입니다.");
+      }
+    } catch (error) {
+      console.error("An error occurred while fetching profile data:", error);
+      return null;
     }
-  } catch (error) {
-    console.error("An error occurred while fetching profile data:", error);
-    return null;
-  }
-};
-const renderProfile = async () => {
-  const profileData = await fetchProfile();
-  const loginContainer = document.getElementById("loginContainer");
-  const profileInfo = document.getElementById("profileInfo");
+  };
 
-  if (profileData) {
-    loginContainer.style.dispaly = "none";
-    profileInfo.innerHTML = `
-      <div>Email: ${profileData.email}</div>
-      <div>Nickname: ${profileData.nickname}</div>
-      <div id="editProfileBtn" class="btn">회원정보 수정</div>
-      <div id="logoutBtn" class="btn">로그아웃</div>
-    `;
-    profileInfo.style.dispaly = "block";
-    // 버튼 클릭 이벤트 처리
-    document.getElementById("editProfileBtn").addEventListener("click", () => {
-      window.location.href = "/edit-profile"; // 수정 페이지 URL로 변경
-    });
+  const renderProfile = async () => {
+    const token = localStorage.getItem("token");
 
-    document.getElementById("logoutBtn").addEventListener("click", () => {
-      localStorage.removeItem("token"); // 토큰 삭제
-      window.location.href = "/login"; // 로그인 페이지로 리디렉션
-    });
-  } else {
-    profileInfo.innerHTML = `
-      <div>Unable to fetch profile data. Please try again later.</div>`;
-    loginContainer.style.display = "none"; // 에러 메시지 표시
-  }
-};
+    if (token) {
+      const profileData = await fetchProfile_mypage();
+      if (profileData) {
+        loginDiv1.textContent = profileData.email;
+        loginDiv2.textContent = profileData.nickname;
+        loginDIv3.textContent = "로그아웃";
 
-renderProfile();
+        // 로그아웃 클릭 이벤트 리스너 추가
+        loginDIv3.addEventListener("click", async () => {
+          if (loginDIv3.textContent === "로그아웃") {
+            localStorage.clear(); // 로컬 스토리지에서 모든 항목을 제거
+            window.location.href = "/main"; // 로그인 페이지로 리디렉션
+          }
+        });
+      }
+    }
+  };
 
-const loginPageMove = document.getElementById("loginBtnMove");
+  renderProfile();
 
-loginPageMove.addEventListener("click", function () {
-  window.location.href = "http://localhost:8000/signin/";
+  registarMove.addEventListener("click", async () => {
+    window.location.href = "http://localhost:8000/signup/";
+  });
 });
-
-const div = document.createElement("div");
-const span = document.createElement("span");
-const p = document.createElement("p");

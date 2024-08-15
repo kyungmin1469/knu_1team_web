@@ -12,16 +12,13 @@ productController.get("/", async (req, res) => {
   return res.json({ data: productlist });
 });
 
-bannerController.get("/:id", async (req, res) => {
-  try {
-    const slider = await Product.findById(req.params.id);
-    if (!slider) {
-      return res.status(404).json({ message: "이미지를 찾을 수 없습니다." });
-    }
-    res.json({ data: slider });
-  } catch (error) {
-    res.status(500).json({ message: "서버 오류", error });
-  }
+productController.get("/:id", async (req, res) => {
+  const productId = req.params.id;
+  console.log({ productId });
+
+  const product = await Product.findById(productId);
+  console.log("product result => \n", { product });
+  return res.json({ result: true, data: product });
 });
 
 module.exports = productController;
