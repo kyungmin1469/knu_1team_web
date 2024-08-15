@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     try {
       // 사용자 입력값을 사용해 POST 요청을 보냄
-      const signinResult = await fetch("/api/user/register", {
+      const signinResult = await fetch("/api/user/signin", {
         method: "POST",
         body: JSON.stringify({ username, password }),
         headers: {

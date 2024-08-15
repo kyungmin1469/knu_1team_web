@@ -26,6 +26,6 @@ signinButton.addEventListener("click", async () => {
     }
   } catch (err) {
     console.log(err);
-    alert("(!)로그인 오류");
+    alert("(!)로그인 실패");
   }
 });
