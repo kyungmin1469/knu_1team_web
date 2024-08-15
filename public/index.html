@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>쇼핑몰 메인 페이지</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+      }
+      #header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px;
+      }
+      #banner {
+        width: 70%;
+        height: 300px;
+        overflow: hidden;
+        position: relative;
+        margin-bottom: 20px;
+      }
+      #banner img {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        animation: slide 10s infinite;
+      }
+      @keyframes slide {
+        0% {
+          left: 0;
+        }
+        20% {
+          left: 0;
+        }
+        25% {
+          left: -100%;
+        }
+        45% {
+          left: -100%;
+        }
+        50% {
+          left: -200%;
+        }
+        70% {
+          left: -200%;
+        }
+        100% {
+          left: 0;
+        }
+      }
+      #login {
+        width: 25%;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+      }
+      #product_grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 20px;
+        margin-top: 20px;
+      }
+      .product-item {
+        border: 1px solid #ccc;
+        padding: 10px;
+        border-radius: 5px;
+        text-align: center;
+      }
+      .product-item img {
+        max-width: 100%;
+        height: auto;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="header">
+      <div id="banner"></div>
+      <div id="login">
+        <h2>로그인</h2>
+        <input type="text" id="username" placeholder="사용자 이름" /><br />
+        <input type="password" id="password" placeholder="비밀번호" /><br />
+        <button id="loginButton">로그인</button>
+      </div>
+    </div>
+    <div id="product_grid"></div>
+    <script src="index.js" defer></script>
+    <!-- JS 파일 연결 -->
+  </body>
+</html>
