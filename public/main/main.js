@@ -49,7 +49,12 @@ document.addEventListener("DOMContentLoaded", function () {
   window.addEventListener("resize", reloadSlider);
 });
 
-// 로그인 상태화면 구현
+const loginPageMove = document.getElementById("loginBtnMove");
+
+loginPageMove.addEventListener("click", function () {
+  window.location.href = "http://localhost:8000/registar/";
+});
+
 const div = document.createElement("div");
 const span = document.createElement("span");
 const p = document.createElement("p");
