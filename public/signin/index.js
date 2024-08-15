@@ -7,7 +7,7 @@ signinButton.addEventListener("click", async () => {
   const password = signinpassword.value;
   try {
     const signinResult = await fetch("/api/user/signin", {
-      method: "post",
+      method: "POST",
       body: JSON.stringify({ email, password }),
       headers: {
         "Content-Type": "application/json",
@@ -16,7 +16,7 @@ signinButton.addEventListener("click", async () => {
 
     if (signinResult.ok) {
       const result = await signinResult.json();
-      console.log("로그인 성공", signinResult);
+      console.log("로그인 성공", result);
 
       //local에 token 저장
       localStorage.setItem("token", result.token);
