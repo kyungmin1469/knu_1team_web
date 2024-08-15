@@ -38,7 +38,7 @@ const renderProductList = async () => {
   <div>
     <img src = "${v.imgeUrl}" />
   </div>
-  <div>재고수량: ${v.stock}</div>
+  <div>재고수량: <input type="number" value="${v.stock}" min="0" /></div>
   `;
     prod0uctListWrapper.append(itemElem);
   });
