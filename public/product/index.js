@@ -1,14 +1,14 @@
 const fetchProductList = async () => {
-  //productController와 통신으로 productData 가져오기
-  const fetchResult = fetch("api/product", {
+  //product.controller와의 통신을 통해 'product' 가져옴
+  const fetchResult = await fetch("/api/product", {
     method: "get",
     headers: {
-      "Content-Type": "application/json",
+      Content_Type: "application/json",
     },
   });
-
   if (fetchResult.ok) {
     const fetchData = await fetchResult.json();
+    //fetchData => {result: true, data: []}
     console.log(fetchData);
     return fetchData.data;
   } else {
@@ -16,31 +16,29 @@ const fetchProductList = async () => {
   }
 };
 
-const prod0uctListWrapper = document.getElementById("product_list_wrapper");
-const renderProductList = async () => {
-  // 상품 리스트는 Array나 null이 옴
-  const productList = await fetchProductList();
+const productListWrapper = document.getElementById("product_list_wrapper");
 
+//화면에 item 뿌리는 함수
+const renderProductList = async () => {
+  const productList = await fetchProductList();
+  //productList은 [] | null이다
   if (!productList || productList.length === 0) {
-    console.log("Empty prod0uctList");
+    console.log("empty productList");
     return;
   }
-
-  //productList가 존재하는 경우 .append
-  //v가 body가 되는 느낌
+  //productList가 존재하는 경우
   productList.forEach((v) => {
-    //div 클래스 가져왔고
     const itemElem = document.createElement("div");
     itemElem.innerHTML = `
-  <div>${v.title}</div>
-  <div>가격: ${v.price}원}</div>
-  <div>[상세설명] ${v.description}</div>
-  <div>
-    <img src = "${v.imgeUrl}" />
-  </div>
-  <div>재고수량: <input type="number" value="${v.stock}" min="0" /></div>
-  `;
-    prod0uctListWrapper.append(itemElem);
+    <div>${v.title}</div>
+    <div>가격: ${v.price}원</div>
+    <div>[상세설명]${v.description}</div>
+    <div>
+    <img src = "${v.imgUrl}" />
+    </div>
+    <div>재고수량: ${v.stock}(개)</div>
+    `;
+    productListWrapper.append(itemElem);
   });
 };
 
