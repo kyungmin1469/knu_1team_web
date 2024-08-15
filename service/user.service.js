@@ -9,20 +9,18 @@ const createUser = async (user) => {
   }
 };
 
-
 const getUser = async (email, password) => {
   const user = await User.findOne({});
 };
 
 const getUserByEmail = async (email) => {
-  try{
+  try {
     const user = await User.findOne({ email });
     console.log(user);
     return user;
-  }catch(err){
+  } catch (err) {
     return null;
   }
-  
 };
 
 module.exports = {
