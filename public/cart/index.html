@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="./cart.js" defer></script>
+    <title>장바구니</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 20px;
+      }
+      .cart {
+        max-width: 800px;
+        margin: 0 auto;
+      }
+      .cart img {
+        max-width: 100px;
+        height: auto;
+        display: block;
+      }
+      .cart-items {
+        list-style: none;
+        padding: 0;
+      }
+      .cart-items li {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 20px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid #ddd;
+      }
+      .cart-item-info {
+        flex-grow: 1;
+        margin-left: 10px;
+      }
+      .cart-item-info h2 {
+        cursor: pointer;
+        margin: 0 0 10px 0;
+      }
+      .cart-item-controls {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- 장바구니 섹션 -->
+    <div class="cart">
+      <h1>장바구니</h1>
+      <ul id="cart-items" class="cart-items">
+        <!-- 장바구니 아이템이 동적으로 여기에 추가됩니다 -->
+      </ul>
+      <p id="cart-total">총 금액: 0원</p>
+      <button onclick="checkout()">구매하기</button>
+    </div>
+  </body>
+</html>
