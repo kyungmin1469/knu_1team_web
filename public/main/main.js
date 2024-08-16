@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const loginDiv1 = document.querySelector(".loginDIv1");
   const loginDiv2 = document.querySelector(".loginDIv2");
   const loginDIv3 = document.querySelector(".loginDIv3");
-  const registarMove = document.getElementById(".registarMove");
+  const registarMove = document.getElementById("registarMove");
 
   let lengthItems = items.length;
   let active = 0;
@@ -132,6 +132,10 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   };
 
+  registarMove.addEventListener("click", async () => {
+    window.location.href = "/signup";
+  });
+
   const renderProfile = async () => {
     const token = localStorage.getItem("token");
 
@@ -154,8 +158,4 @@ document.addEventListener("DOMContentLoaded", function () {
   };
 
   renderProfile();
-
-  registarMove.addEventListener("click", async () => {
-    window.location.href = "http://localhost:8000/signup/";
-  });
 });
