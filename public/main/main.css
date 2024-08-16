@@ -242,6 +242,11 @@ header nav ul li {
   margin-left: -2%;
 }
 
+.changemove {
+  display: block; /* 혹은 다른 적절한 display 값 */
+  visibility: visible;
+  opacity: 1;
+}
 #registarMove {
   width: 20%;
   float: right;
