@@ -1,6 +1,6 @@
 const signinEmail = document.getElementById("signin_email");
 const signinPassword = document.getElementById("signin_password");
-const signinButton = document.getElementById("login_btn_move");
+const signinButton = document.getElementById("signin_button");
 
 signinButton.addEventListener("click", async () => {
   const email = signinEmail.value;
@@ -20,7 +20,7 @@ signinButton.addEventListener("click", async () => {
 
       //local에 token 저장
       localStorage.setItem("token", result.token);
-      window.location.href = "/main/";
+      window.location.href = "http://localhost:8000/mypage/";
     } else {
       alert("(!)로그인 오류");
     }

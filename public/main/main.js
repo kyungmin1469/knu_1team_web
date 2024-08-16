@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const loginDiv2 = document.querySelector(".loginDIv2");
   const loginDIv3 = document.querySelector(".loginDIv3");
   const registarMove = document.getElementById("registarMove");
-  const cartIcon = document.querySelector(".social-menu ul li a"); //장바구니 개수 표시
+  const changemove = document.getElementById("changemove");
 
   let lengthItems = items.length;
   let active = 0;
@@ -57,7 +57,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const loginPageMove = document.getElementById("loginBtnMove");
 
   loginPageMove.addEventListener("click", function () {
-    window.location.href = "/signin/";
+    window.location.href = "http://localhost:8000/signin/";
   });
 
   // Product list rendering
@@ -133,10 +133,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   };
 
-  registarMove.addEventListener("click", async () => {
-    window.location.href = "/signup";
-  });
-
   const renderProfile = async () => {
     const token = localStorage.getItem("token");
 
@@ -155,23 +151,17 @@ document.addEventListener("DOMContentLoaded", function () {
           }
         });
       }
+
+      // 로그아웃 클릭 이벤트 리스너 추가
+      changemove.addEventListener("click", async () => {
+        window.location.href = "/edit-profile"; // 닉네임 변경으로 리디렉션
+      });
     }
   };
 
   renderProfile();
 
   registarMove.addEventListener("click", async () => {
-    window.location.href = "/signup/";
+    window.location.href = "http://localhost:8000/signup/";
   });
-
-  //장바구니 항목에 표시
-  const updateCartCount = () => {
-    const cart = JSON.parse(localStorage.getItem("cart")) || [];
-    const cartCount = cart.reduce((total, item) => total + item.quantity, 0);
-    cartIcon.setAttribute("data-cart-count", cartCount > 0 ? cartCount : "");
-  };
-
-  updateCartCount();
-
-  window.addEventListener("storage", updateCartCount);
 });

@@ -1,4 +1,5 @@
 const productController = require("express").Router();
+const bannerController = require("express").Router();
 const Product = require("../schema/product.schema");
 const getProductList = require("../service/product.service");
 

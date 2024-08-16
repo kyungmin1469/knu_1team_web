@@ -1,0 +1,650 @@
+/* 공통 스타일 */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "futura md bt";
+  text-decoration: none;
+  list-style: none;
+  box-sizing: border-box;
+}
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  width: 100%;
+  font-family: Inter, sans-serif;
+  height: 100%;
+  color: white;
+  background: white;
+}
+
+img {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+header {
+  background: white;
+  position: fixed;
+  width: 100%;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 36px;
+  z-index: 50;
+}
+header .logo {
+  height: 100%;
+  color: white;
+  font-size: 30px;
+  text-transform: uppercase;
+}
+
+header .logo img {
+  max-height: 100%; /* 부모 컨테이너의 높이에 맞춰서 이미지의 최대 높이를 설정 */
+  max-width: 100%; /* 이미지가 부모 컨테이너의 너비를 넘지 않도록 설정 */
+  height: auto; /* 비율을 유지하기 위해 자동으로 높이 조정 */
+  width: auto; /* 비율을 유지하기 위해 자동으로 너비 조정 */
+  display: block; /* 이미지가 블록처럼 보이도록 설정 */
+  box-sizing: border-box; /* 요소의 크기 계산 방식을 변경 */
+}
+
+.searchBar {
+  width: 80%;
+  height: 70%;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+
+.searchInput {
+  border: 3px solid #32e17c;
+  width: 90%;
+  height: 80%;
+  border-radius: 50px;
+  padding: 0% 5%;
+}
+
+.slider {
+  width: 100%;
+  max-width: 1300px;
+  height: 700px;
+  margin: auto;
+  position: relative;
+  overflow: hidden;
+}
+
+.slider .list {
+  display: flex;
+  transition: transform 1s ease;
+}
+
+.slider .list .item {
+  flex: 0 0 100%;
+  height: 100%;
+}
+
+.slider .list img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.slider .buttons {
+  position: absolute;
+  top: 50%;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  transform: translateY(-50%);
+  padding: 0 10px;
+  box-sizing: border-box;
+}
+
+.slider .buttons button {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.5);
+  color: #fff;
+  border: none;
+  font-family: monospace;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.slider .dots {
+  position: absolute;
+  bottom: 10px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 0;
+  margin: 0;
+}
+
+.slider .dots li {
+  list-style: none;
+  width: 10px;
+  height: 10px;
+  background-color: #fff;
+  margin: 0 5px;
+  border-radius: 50%;
+  transition: width 0.5s;
+}
+
+.slider .dots li.active {
+  width: 30px;
+}
+
+@media (max-width: 1200px) {
+  .slider {
+    height: 600px;
+  }
+}
+
+@media (max-width: 992px) {
+  .slider {
+    height: 500px;
+  }
+
+  .slider .buttons button {
+    width: 40px;
+    height: 40px;
+    font-size: 16px;
+  }
+
+  .slider .dots li {
+    width: 8px;
+    height: 8px;
+    margin: 0 3px;
+  }
+
+  .slider .dots li.active {
+    width: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .slider {
+    height: 400px;
+  }
+
+  .slider .buttons button {
+    width: 35px;
+    height: 35px;
+    font-size: 14px;
+  }
+
+  .slider .dots li {
+    width: 6px;
+    height: 6px;
+    margin: 0 2px;
+  }
+
+  .slider .dots li.active {
+    width: 15px;
+  }
+}
+
+@media (max-width: 576px) {
+  .slider {
+    height: 300px;
+  }
+
+  .slider .buttons button {
+    width: 30px;
+    height: 30px;
+    font-size: 12px;
+  }
+
+  .slider .dots li {
+    width: 5px;
+    height: 5px;
+    margin: 0 1px;
+  }
+
+  .slider .dots li.active {
+    width: 10px;
+  }
+}
+
+header,
+header .logo img {
+  box-sizing: border-box;
+}
+
+header nav ul {
+  display: flex;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+header nav ul li {
+  display: inline-block;
+  color: #000;
+  padding: 5px 0;
+  margin: 0 10px;
+  border: 3px solid transparent;
+  text-transform: uppercase;
+  transition: 0.2s;
+}
+
+/* Flexbox for centering */
+.centerAlign {
+  display: flex; /* Enable flexbox */
+  justify-content: center; /* Center items horizontally */
+  align-items: center; /* Center items vertically */
+  height: 100%; /* Optional: Ensure full height if needed */
+  text-align: center; /* Center text within the items */
+}
+
+#realBody {
+  display: flex;
+  width: 100%;
+
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+}
+
+#realBody2 {
+  display: flex;
+  width: 80%;
+
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+}
+
+#section1Layout {
+  background-color: blue;
+  width: 70%;
+  height: 500px;
+}
+
+#aside1Layout {
+  width: 30%;
+  height: 500px;
+  background-color: red;
+}
+
+.loginDIv1 {
+  width: 100%;
+  height: 30%;
+  text-align: center;
+  background-color: aqua;
+  color: black;
+}
+
+.loginDIv2 {
+  width: 100%;
+  height: 50%;
+  text-align: center;
+  color: black;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+}
+
+.loginDIv3 {
+  width: 100%;
+  height: 20%;
+  text-align: center;
+  color: black;
+}
+
+.link {
+  text-decoration: none;
+  padding: 0.5rem 0.75rem;
+  font-size: 18px;
+  font-weight: 600;
+  color: black;
+  position: relative;
+  transition: color 0.25s;
+}
+.link:hover {
+  z-index: 1;
+  color: black;
+}
+
+.link::after {
+  z-index: 2;
+  position: absolute;
+  content: "";
+  inset: 0;
+  background-color: #fefefe;
+  scale: 1 0;
+  z-index: -1;
+  transition: 0.45s;
+  border-radius: 10px;
+}
+.link:hover::after {
+  scale: 1 1;
+}
+
+.card > .background {
+  position: absolute;
+  inset: 0;
+  object-fit: cover;
+  object-position: center;
+  filter: brightness(0.4);
+  z-index: -1;
+  transition: var(--transition-timing) ease;
+}
+.card:hover > .background {
+  filter: brightness(1);
+}
+
+.card > .card-content {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  left: 10px;
+  right: 10px;
+  bottom: 20px;
+  overflow: hidden;
+  transition: var(--transition-timing);
+  z-index: 10;
+}
+.card:hover > .card-content {
+  inset: 20px;
+  top: auto;
+}
+
+.card-content > * {
+  transition: var(--transition-timing);
+}
+
+.card-content > .profile-image {
+  min-width: 50px;
+  max-width: 50px;
+  height: 50px;
+  border: 1px solid white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  overflow: hidden;
+}
+.card:hover .profile-image {
+  border: 1px solid rgb(5, 7, 6);
+}
+.profile-image > svg {
+  stroke: #fefefe;
+}
+.card:hover .profile-image > svg {
+  stroke: rgb(4, 7, 6);
+}
+
+.card-content > .title {
+  white-space: pre;
+  margin-left: 10px;
+  translate: 0 100%;
+  opacity: 0;
+}
+.card:hover .title {
+  opacity: 1;
+  translate: 0 0;
+}
+
+.card > .backdrop {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 100px;
+  z-index: 0;
+  background: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.7));
+}
+
+footer {
+  position: relative;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #111;
+  height: auto;
+  width: 100%;
+  font-family: "Open Sans";
+  padding-top: 20px;
+  color: #fff;
+}
+
+.footer-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+}
+
+.footer-content h3 {
+  font-size: 1.8rem;
+  font-weight: 400;
+  text-transform: capitalize;
+  line-height: 3rem;
+}
+
+.footer-content p {
+  max-width: 500px;
+  margin: 10px auto;
+  line-height: 28px;
+  font-size: 14px;
+}
+
+.socials {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 1rem 0 3rem 0;
+}
+
+.socials li {
+  margin: 0 10px;
+}
+
+.socials a {
+  text-decoration: none;
+  color: #fff;
+}
+
+.socials a l {
+  font-size: 1.1rem;
+  transition: color 0.4s ease;
+}
+
+.socials a:hover i {
+  color: aqua;
+}
+
+.footer-bottom {
+  background: #000;
+  width: 100%;
+  padding: 15px 0;
+  text-align: center;
+}
+
+.footer-bottom p {
+  font-size: 14px;
+  word-spacing: 2px;
+  text-transform: capitalize;
+}
+
+.footer-bottom span {
+  text-transform: uppercase;
+  opacity: 4;
+  font-weight: 400;
+}
+
+.main {
+  width: 100%;
+  position: relative;
+  margin-top: 100px;
+}
+
+.containerALignWidth {
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  display: flex;
+}
+
+.container {
+  width: 90%;
+  height: 30%;
+  background-color: white; /* Background color of the container */
+  border: 5px solid black; /* Border around the container */
+}
+
+.container3 {
+  position: fixed;
+  width: 50%;
+  z-index: 20;
+}
+
+.social-menu ul {
+  width: 100%;
+  position: fixed;
+  top: 95%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 0;
+  margin: 0;
+  display: flex;
+  z-index: 20;
+}
+.social-menu ul li {
+  list-style: none;
+  margin: 0 10px;
+}
+.social-menu ul li .fa {
+  color: #000000;
+  font-size: 25px;
+  line-height: 50px;
+  transition: 0.5s;
+}
+.social-menu ul li .fa:hover {
+  color: #ffffff;
+}
+.social-menu ul li a {
+  position: relative;
+  display: block;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  text-align: center;
+  transition: 0.5s;
+  transform: translate(0, 0px);
+  box-shadow: 0px 7px 5px rgba(0, 0, 0, 0.5);
+}
+
+.socialskk {
+  background-color: white;
+}
+
+.social-menu ul li a:hover {
+  transform: rotate(0deg) skew(0deg) translate(0, -10px);
+}
+
+@media screen and (max-width: 900px) {
+  body {
+    width: auto;
+  }
+  header {
+    z-index: 50;
+    padding: 0 30px;
+  }
+}
+
+@media screen and (max-width: 736px) {
+  .wrapper {
+    width: 100%;
+    font-size: 15vmin;
+  }
+
+  .hamburger {
+    display: block;
+  }
+
+  .card {
+    min-width: 50px;
+    height: 100%;
+    border-radius: 30px;
+    overflow: hidden;
+    display: flex;
+    align-items: flex-end;
+    flex-grow: 1;
+    cursor: pointer;
+    position: relative;
+    transition: flex-grow 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    --transition-timing: 0.35s;
+  }
+
+  header nav {
+    z-index: 50;
+    position: absolute;
+    width: 100%;
+    left: -100%;
+    top: 70px;
+    width: 100%;
+    background: black;
+    padding: 30px;
+    transition: 0.3s;
+  }
+  header #nav_check:checked ~ nav {
+    left: 0;
+  }
+  header nav ul {
+    display: block;
+  }
+  header nav ul li a {
+    margin: 5px 0;
+  }
+
+  body {
+    width: auto;
+  }
+
+  .skewed {
+    display: block;
+    position: relative;
+    width: 20em;
+  }
+
+  .middleCard_img,
+  .skewed_text {
+    width: 100%;
+  }
+  .middleCard_img > img {
+    width: 160%;
+  }
+  .skewed .middleCard_img::before {
+    width: 120%;
+    height: 40%;
+    top: -5em;
+    left: 50%;
+    transform: translateX(-50%) rotate(10deg);
+  }
+
+  .skewed-left .middleCard_img::before {
+    transform: translateX(-50%) rotate(-10deg);
+    top: initial;
+    bottom: -5em;
+  }
+
+  .container0 {
+    margin-top: 100px;
+  }
+}

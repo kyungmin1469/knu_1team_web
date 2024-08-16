@@ -1,5 +1,9 @@
 const bcrypt = require("bcryptjs");
-const { createUser, getUserByEmail } = require("../service/user.service");
+const {
+  createUser,
+  getUserByEmail,
+  updateUserNickname,
+} = require("../service/user.service");
 const userController = require("express").Router();
 const jwt = require("jsonwebtoken");
 
@@ -173,5 +177,49 @@ const verifyToken = (req, res) => {
     }
   }
 };
+
+// 닉네임 수정 API 추가
+userController.patch("/edit-profile", async (req, res) => {
+  const token = req.headers["authorization"]?.split(" ")[1]; // Authorization 헤더에서 토큰 추출
+  const { nickname } = req.body; // 수정할 닉네임
+
+  if (!token) {
+    return res.status(401).json({
+      isVerify: false,
+      result: false,
+      message: "토큰이 제공되지 않음.",
+    });
+  }
+
+  try {
+    // 토큰 유효성 검증
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const userEmail = decoded.email; // 사용자 이메일
+
+    // 닉네임 업데이트
+    const updatedUser = await updateUserNickname(userEmail, nickname);
+
+    if (updatedUser) {
+      return res.status(200).json({
+        isVerify: true,
+        result: true,
+        message: "닉네임이 성공적으로 수정되었습니다.",
+      });
+    } else {
+      return res.status(400).json({
+        isVerify: false,
+        result: false,
+        message: "닉네임 수정에 실패했습니다.",
+      });
+    }
+  } catch (err) {
+    console.log("Token 유효성 오류", err);
+    return res.status(401).json({
+      isVerify: false,
+      result: false,
+      message: "유효하지 않은 토큰입니다.",
+    });
+  }
+});
 
 module.exports = userController;
