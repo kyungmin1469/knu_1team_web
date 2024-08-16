@@ -452,3 +452,24 @@ footer {
 .social-menu ul li a:hover {
   transform: rotate(0deg) skew(0deg) translate(0, -10px);
 }
+
+/* 장바구니 개수 말풍선 스타일 */
+.social-menu ul li a::after {
+  content: attr(
+    data-cart-count
+  ); /* 장바구니 개수는 data-cart-count 속성을 통해 설정 */
+  position: absolute;
+  top: -5px; /* 말풍선 위치 (위쪽) */
+  right: -5px; /* 말풍선 위치 (오른쪽) */
+  background-color: red; /* 말풍선 배경색 */
+  color: white; /* 말풍선 글자색 */
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-size: 12px; /* 말풍선 글자 크기 */
+  font-weight: bold; /* 말풍선 글자 굵기 */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
