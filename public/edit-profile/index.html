@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>회원정보 수정</title>
+    <link rel="stylesheet" href="change.css" />
+    <script src="index.js" defer></script>
+  </head>
+  <body>
+    <div class="container">
+      <h1>회원정보 수정</h1>
+      <form id="editProfileForm">
+        <div class="form-group">
+          <label for="nickname">닉네임</label>
+          <input type="text" id="nickname" name="nickname" required />
+        </div>
+        <button id="submitBtn" class="btn">수정하기</button>
+      </form>
+      <button id="cancelBtn" class="btn">취소</button>
+      <div id="message" class="message"></div>
+    </div>
+  </body>
+</html>

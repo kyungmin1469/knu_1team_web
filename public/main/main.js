@@ -6,7 +6,8 @@ document.addEventListener("DOMContentLoaded", function () {
   let dots = document.querySelectorAll(".slider .dots li");
   const loginDiv1 = document.querySelector(".loginDIv1");
   const loginDiv2 = document.querySelector(".loginDIv2");
-  const loginDIv3 = document.querySelector(".loginDIv3");
+  const editBtn = document.querySelector(".editBtn");
+  const regiBtn = document.querySelector(".regiBtn");
   const registarMove = document.getElementById(".registarMove");
 
   let lengthItems = items.length;
@@ -180,11 +181,16 @@ document.addEventListener("DOMContentLoaded", function () {
       if (profileData) {
         loginDiv1.textContent = profileData.email;
         loginDiv2.textContent = profileData.nickname;
-        loginDIv3.textContent = "로그아웃";
+        editBtn.textContent = "개인정보 수정";
+        regiBtn.textContent = "로그아웃";
+
+        editBtn.addEventListener("click", async () => {
+          window.location.href = "http://localhost:8000/edit-profile"; // 로그인 페이지로 리디렉션
+        });
 
         // 로그아웃 클릭 이벤트 리스너 추가
-        loginDIv3.addEventListener("click", async () => {
-          if (loginDIv3.textContent === "로그아웃") {
+        regiBtn.addEventListener("click", async () => {
+          if (regiBtn.textContent === "로그아웃") {
             localStorage.clear(); // 로컬 스토리지에서 모든 항목을 제거
             window.location.href = "/main"; // 로그인 페이지로 리디렉션
           }
