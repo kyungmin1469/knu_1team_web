@@ -23,6 +23,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         "Content-Type": "application/json",
       },
     });
+    console.log(response);
 
     if (response.ok) {
       const product = await response.json();
@@ -97,7 +98,7 @@ document.getElementById("add-to-cart").addEventListener("click", () => {
     // 장바구니에 새로운 상품 추가
     cart.push(product);
 
-    alert(`${title}이(가) 장바구니에 추가되었습니다. (수량: ${quantityToAdd})`); //장바구니 추가 시 알림창
+    alert(`${title}이(가) 장바구니에 추가되었습니다.`);
   }
 
   // 업데이트된 장바구니 리스트를 로컬 스토리지에 저장

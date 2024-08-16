@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
   const cartListWrapper = document.getElementById("cart_list_wrapper"); //장바구니 항목 표시
   const totalPriceElement = document.getElementById("totalPrice"); //총합 표시
 
@@ -95,24 +95,46 @@ document.addEventListener("DOMContentLoaded", () => {
         window.location.href = "/signin"; //로그인 페이지로 이동
         return;
       }
-
+      const token = localStorage.getItem("token");
       //결제 정보 수집
       const orderData = {
+        buyerId: token,
         buyerName: document.getElementById("buyerName").value,
-        buyerPhone: document.getElementById("buyerPhone").value,
+        buyerPhoneNum: document.getElementById("buyerPhone").value,
         buyerEmail: document.getElementById("buyerEmail").value,
         recipientName: document.getElementById("recipientName").value,
         recipientAddress: document.getElementById("recipientAddress").value,
-        recipientPhone: document.getElementById("recipientPhone").value,
+        recipientPhoneNum: document.getElementById("recipientPhone").value,
         products: JSON.parse(localStorage.getItem("cart")),
         totalPrice: totalPriceElement.textContent
           .replace("총합: ", "")
           .replace("원", ""),
       };
 
-      alert("결제가 성공적으로 완료되었습니다.");
-      localStorage.removeItem("cart"); // 장바구니 비우기
-      window.location.href = "/main"; // 메인 화면으로 이동
+      // 서버로 결제 요청
+      try {
+        const response = await fetch("/api/order", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(orderData),
+        });
+
+        // 서버 응답 확인
+        if (response.ok) {
+          alert("결제가 성공적으로 완료되었습니다.");
+          localStorage.removeItem("cart"); // 장바구니 비우기
+          window.location.href = "/main"; // 메인 화면으로 이동
+        } else {
+          const errorData = await response.json();
+          console.error("결제 오류:", errorData);
+          alert("결제 중 오류가 발생했습니다. 다시 시도해주세요1.");
+        }
+      } catch (error) {
+        console.error("결제 요청 중 오류 발생:", error);
+        alert("결제 중 오류가 발생했습니다. 다시 시도해주세요.");
+      }
     });
 
   renderCartList();
