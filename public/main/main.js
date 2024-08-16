@@ -57,7 +57,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const loginPageMove = document.getElementById("loginBtnMove");
 
   loginPageMove.addEventListener("click", function () {
-    window.location.href = "http://localhost:8000/signin/";
+    window.location.href = "/signin/";
   });
 
   // Product list rendering
@@ -112,7 +112,7 @@ document.addEventListener("DOMContentLoaded", function () {
         throw new Error("토큰이 없습니다.");
       }
 
-      const response = await fetch("http://localhost:8000/api/user/me", {
+      const response = await fetch("/api/user/me", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -162,6 +162,6 @@ document.addEventListener("DOMContentLoaded", function () {
   renderProfile();
 
   registarMove.addEventListener("click", async () => {
-    window.location.href = "http://localhost:8000/signup/";
+    window.location.href = "/signup/";
   });
 });

@@ -5,7 +5,7 @@ const fetchProfile_mypage = async () => {
       throw new Error("토큰이 없습니다.");
     }
     // profileController와 통신으로 profileData 가져오기
-    const response = await fetch("http://localhost:8000/api/user/me", {
+    const response = await fetch("/api/user/me", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
