@@ -8,6 +8,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const loginDiv2 = document.querySelector(".loginDIv2");
   const loginDIv3 = document.querySelector(".loginDIv3");
   const registarMove = document.getElementById("registarMove");
+  const cartIcon = document.querySelector(".social-menu ul li a"); //장바구니 개수 표시
 
   let lengthItems = items.length;
   let active = 0;
@@ -56,7 +57,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const loginPageMove = document.getElementById("loginBtnMove");
 
   loginPageMove.addEventListener("click", function () {
-    window.location.href = "http://localhost:8000/signin/";
+    window.location.href = "/signin/";
   });
 
   // Product list rendering
@@ -158,4 +159,19 @@ document.addEventListener("DOMContentLoaded", function () {
   };
 
   renderProfile();
+
+  registarMove.addEventListener("click", async () => {
+    window.location.href = "/signup/";
+  });
+
+  //장바구니 항목에 표시
+  const updateCartCount = () => {
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    const cartCount = cart.reduce((total, item) => total + item.quantity, 0);
+    cartIcon.setAttribute("data-cart-count", cartCount > 0 ? cartCount : "");
+  };
+
+  updateCartCount();
+
+  window.addEventListener("storage", updateCartCount);
 });
