@@ -14,7 +14,7 @@ const fetchProfile_mypage = async () => {
       body: JSON.stringify({ userToken: token }), // 토큰을 요청 본문에 포함
     });
     // res.json({data: true})
-    // 응답이 성공적일 때
+    // 응답이 성공적일 때.
 
     const data = await response.json();
 
